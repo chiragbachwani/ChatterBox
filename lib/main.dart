@@ -1,8 +1,7 @@
 import 'package:chat_app/const/images.dart';
 import 'package:chat_app/const/strings.dart';
-import 'package:chat_app/views/intro_screen/home_screen/home_screen.dart';
+import 'package:chat_app/splashscreen.dart';
 import 'package:chat_app/views/intro_screen/verification_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +9,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'const/firebase_const.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,29 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var isUser = false;
-
-  checkUser() async {
-    auth.authStateChanges().listen((User? user) {
-      if (user == null && mounted) {
-        setState(() {
-          isUser = false;
-        });
-      } else {
-        setState(() {
-          isUser = true;
-        });
-      }
-
-      print("User value is $isUser");
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    checkUser();
-  }
+  
 
   // This widget is the root of your application.
   @override
@@ -62,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: isUser ? const HomeScreen() : const ChatApp(),
+      home: Splash(),
     );
   }
 }
